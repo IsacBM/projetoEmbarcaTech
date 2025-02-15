@@ -1,6 +1,15 @@
-# Projeto para o EmbarcaTech - Facilidade para o Dia-a-dia!
-O projeto foi desenvolvido na linguagem C, e utiliza a Placa Raspbarry Pi Pico W como microcontrolador central do 
-## Kit BitDogLab:
+# Projeto EmbarcaTech - Facilidade para o Dia-a-dia!
+
+> Status do Projeto: Finalizado! :heavy_check_mark:
+
+O projeto foi desenvolvido na linguagem C e utiliza o **[Kit BitDogLab](https://github.com/BitDogLab)** como base de desenvolvimento. O principal objetivo é facilitar o controle de elementos do dia-a-dia, como iluminação, climatização e segurança, através de uma interface acessível e intuitiva possibilitada por um servidor HTTP gerado pela placa que fica responsável por gerenciar esse controle de forma remota.
+
+### Informações Adicionais
+
+• Versão do Pico SDK: **[V1.5.1]()** <br>
+• Placa de Desenvolvimento: **[Raspberry Pi Pico W]()**
+
+## • Kit BitDogLab:
 
 <div align="center">
   <p>Figura 1 - Kit BitDogLab</p>
@@ -14,7 +23,13 @@ O projeto foi desenvolvido na linguagem C, e utiliza a Placa Raspbarry Pi Pico W
   <p>Kit BitDogLab Parte Inferior - 2025</p>
 </div>
 
-## Bibliotecas Utilizadas:
+<h4 align="center">Saiba mais sobre o Kit Aqui:</h4>
+
+<p align="center">
+ <a href="https://github.com/BitDogLab/BitDogLab?tab=readme-ov-file" target="_blank"><img align="center" alt="Isac-PYTHON" height="40" width="105" src="https://img.shields.io/badge/visualizar-1db954?style=for-the-badge&logo=visualizar&logoColor=#00C7B7" target="_blank"></a>
+</p>
+
+## • Bibliotecas Utilizadas:
 
 ### 📌 Bibliotecas Padrão  
 Essas bibliotecas são fornecidas pela linguagem C e são usadas para funcionalidades gerais, como entrada e saída de dados, manipulação de strings e alocação de memória.  
@@ -74,9 +89,9 @@ Utilizadas para operações de baixo nível com a Raspberry Pi Pico.
 #include "hardware/pio.h"
 ```
 
-## Resultados:
+## • Resultados:
 
-## Desenvolvedor Responsavél:
+## • Desenvolvedor Responsavél:
 <div align="center">
  
 |  [<img src="https://avatars.githubusercontent.com/u/91500212?v=4" width=115><br><sub>Isac B. Matos</sub>](https://github.com/IsacBM) |
