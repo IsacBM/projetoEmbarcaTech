@@ -91,6 +91,8 @@ Utilizadas para operações de baixo nível com a Raspberry Pi Pico.
 
 ## • Resultados:
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/RcdylnDFs00/0.jpg)](https://www.youtube.com/embed/RcdylnDFs00)
+
 ## • Desenvolvedor Responsavél:
 <div align="center">
  
