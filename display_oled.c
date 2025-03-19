@@ -19,8 +19,8 @@
 #define LED_PIN 12          // LED Azul
 #define LED_CONECTADO 11    // LED Verde
 #define LED_SEM_CONEXAO 13  // LED Vermelho
-#define WIFI_SSID "nome_da_rede"  // Nome da rede Wi-Fi
-#define WIFI_PASS "senha_da_rede123" // Senha da rede Wi-Fi
+#define WIFI_SSID "ADRIANA ALVES"  // Nome da rede Wi-Fi
+#define WIFI_PASS "luanalves@1" // Senha da rede Wi-Fi
 #define SCREEN_WIDTH 128  // Largura do display
 #define SCREEN_HEIGHT 64  // Altura do display
 #define CHAR_WIDTH 6      // Largura média de um caractere
@@ -34,7 +34,7 @@
 #define BUTTON_A 5        // Pino do botão A
 #define BUTTON_B_PIN 6    // Pino do botão B
 
-// Estrutura HTML
+// Estrutura HTML 
 #define HTTP_RESPONSE_TEMPLATE "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" \
 "<!DOCTYPE html><html lang=\"pt-br\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Embarca Tech - Atividade</title><style>body{text-align: center;}.container{display: flex;justify-content: center;gap: 10px;flex-wrap: wrap;}a {display: inline-block;padding: 10px 20px;text-decoration: none;font-size: 16px;font-weight: bold;color: white;background-color: #007BFF;border-radius: 5px;transition: 0.3s;text-align: center;}a:hover { background-color: #0056b3;}p { margin: 10px 0; text-align: center; }.luz-casa, .arcondicionado-casa {display: flex;flex-wrap: wrap;justify-content: center;gap: 10px;}@media (max-width: 600px) {.container { flex-direction: column; align-items: center; }.luz-casa div, .arcondicionado-casa div { width: 100%; }footer { position: relative; }}</style></head><body><div class=\"container-temp\"><div class=\"borda\"><div class=\"hora-data\"><span>Temp. do Ambiente</span></div><div class=\"temp\"><span>%.0fºC</span></div></div></div><div class=\"container\"><p><fieldset><legend>Portão de Casa</legend><a href=\"/led/on\">Abrir Portão</a></p><p><a href=\"/led/off\">Fechar Portão</a></fieldset></p><fieldset><legend>Controle de Luzes</legend><div class=\"luz-casa\"><p><a href=\"/led/matriz/ligar/1/1\">Acender Luz da Sala</a></p><p><a href=\"/led/matriz/desligar/1/1\">Desligar Luz da Sala</a></p><p><a href=\"/led/matriz/ligar/1/2\">Acender Luz do Quarto</a></p><p><a href=\"/led/matriz/desligar/1/2\">Apagar Luz do Quarto</a></p><p><a href=\"/led/matriz/ligar/1/3\">Acender Luz da Cozinha</a></p><p><a href=\"/led/matriz/desligar/1/3\">Apagar Luz da Cozinha</a></p><p><a href=\"/led/matriz/ligar/1/4\">Acender Luz do Banheiro</a></p><p><a href=\"/led/matriz/desligar/1/4\">Apagar Luz do Banheiro</a></p></div></fieldset><fieldset><legend>Controle do Ar-Condicionado</legend><div class=\"arcondicionado-casa\"><p><a href=\"/led/matriz/ligar/1/5\">Ligar Ar-Condicionado</a></p><p><a href=\"/led/matriz/desligar/1/5\">Desligar Ar-Condicionado</a></p></div></fieldset></div></body></html>\r\n"
 
@@ -55,10 +55,11 @@ int matriz_wifi[5][5][3] = { // Matriz de LEDs ativados para mostrar o wi-fi
     {{0, 0, 0}, {0, 255, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
 };
 
+// Comunicação SDA e SCL do Display OLED
 const uint I2C_SDA = 14;
 const uint I2C_SCL = 15;
 
-struct render_area frame_area = {
+struct render_area frame_area = {  //
     start_column : 0,
     end_column : ssd1306_width - 1,
     start_page : 0,
@@ -73,30 +74,30 @@ typedef struct { // Estrutura para um LED RGB...
   
 npLED_t leds[LED_COUNT]; // Buffer de pixels que formam a matriz...
 
-// Variáveis para uso da máquina PIO.
+// Variáveis para uso da máquina PIO
 PIO np_pio;
 uint sm;
 
-void npInit(uint pin) { // Inicializa a máquina PIO para controle da matriz de LEDs.
+void npInit(uint pin) { // Inicializa a máquina PIO para controle da matriz de LEDs
 
-    uint offset = pio_add_program(pio0, &ws2818b_program);     // Cria programa PIO.
+    uint offset = pio_add_program(pio0, &ws2818b_program);     // Cria programa PIO
     np_pio = pio0;
-    sm = pio_claim_unused_sm(np_pio, false); // Toma posse de uma máquina PIO.
+    sm = pio_claim_unused_sm(np_pio, false); // Toma posse de uma máquina PIO
     if (sm < 0) {
       np_pio = pio1;
       sm = pio_claim_unused_sm(np_pio, true); // Se nenhuma máquina estiver livre, panic!
     }
   
-    ws2818b_program_init(np_pio, sm, offset, pin, 800000.f); // Inicia programa na máquina PIO obtida.
+    ws2818b_program_init(np_pio, sm, offset, pin, 800000.f); // Inicia programa na máquina PIO obtida
   
-    for (uint i = 0; i < LED_COUNT; ++i) {     // Limpa buffer de pixels.
+    for (uint i = 0; i < LED_COUNT; ++i) {     // Limpa buffer de pixels
       leds[i].R = 0;
       leds[i].G = 0;
       leds[i].B = 0;
     }
 }
 
-void npSetLED(const uint index, const uint8_t r, const uint8_t g, const uint8_t b) { // Atribui uma cor RGB a um LED.
+void npSetLED(const uint index, const uint8_t r, const uint8_t g, const uint8_t b) { // Atribui uma cor RGB a um LED
     leds[index].R = r;
     leds[index].G = g;
     leds[index].B = b;
@@ -108,12 +109,13 @@ void npClear() { // Limpa os valores que estão nos LEDs("Desliga os LEDs"):
 }
 
 void npWrite() { // Atualiza a matriz de LEDs com os valores do buffer
-    for (uint i = 0; i < LED_COUNT; ++i) { // Escreve cada dado de 8-bits dos pixels em sequência no buffer da máquina PIO.
+
+    for (uint i = 0; i < LED_COUNT; ++i) { // Escreve cada dado de 8-bits dos pixels em sequência no buffer da máquina PIO
       pio_sm_put_blocking(np_pio, sm, leds[i].G);
       pio_sm_put_blocking(np_pio, sm, leds[i].R);
       pio_sm_put_blocking(np_pio, sm, leds[i].B);
     }
-    sleep_us(100); // Espera 100us, sinal de RESET do datasheet.
+    sleep_us(100); // Espera 100us, sinal de RESET do datasheet
 }
   
 int getIndex(int x, int y) {
@@ -167,7 +169,6 @@ float temperatura_ambiente(bool formatado){ // Faz a Leitura da Temperatura
     } else{ // Se não precisa ser formatada ele mostra a informação completa da leitura feita
         return truncated_temperature;
     }
-
 }
 
 static err_t http_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err) {
@@ -178,7 +179,7 @@ static err_t http_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_
 
     char *request = (char *)p->payload; // Processa a requisição HTTP
 
-    if (strstr(request, "GET /led/matriz/ligar/1/1")) {
+    if (strstr(request, "GET /led/matriz/ligar/1/1")) { // As funções que podem ser realizadas no servidor
         matriz[0][0][0] = 255;  // Vermelho
         matriz[0][0][1] = 255;    // Verde
     } else if (strstr(request, "GET /led/matriz/desligar/1/1")) {
@@ -210,7 +211,7 @@ static err_t http_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_
     
     desenharMatriz(matriz);
 
-    if (strstr(request, "GET /led/on")) {
+    if (strstr(request, "GET /led/on")) {     // Ação de Abrir e Fechar o Portão
         abrir_portao();
     } else if (strstr(request, "GET /led/off")) {
         fechar_portao();
@@ -241,7 +242,7 @@ static err_t connection_callback(void *arg, struct tcp_pcb *newpcb, err_t err) {
     return ERR_OK;
 }
 
-static void start_http_server(void) {
+static void start_http_server(void) {  // Inicia o Servidor HTTP
     struct tcp_pcb *pcb = tcp_new();
     if (!pcb) {
         printf("Erro ao criar PCB\n");
@@ -259,9 +260,9 @@ static void start_http_server(void) {
 }
 
 void pwm_init_buzzer(uint pin) {
-    gpio_set_function(pin, GPIO_FUNC_PWM);    // Configurar o pino como saída de PWM
+    gpio_set_function(pin, GPIO_FUNC_PWM);  // Configurar o pino como saída de PWM
 
-    uint slice_num = pwm_gpio_to_slice_num(pin);    // Obter o slice do PWM associado ao pino
+    uint slice_num = pwm_gpio_to_slice_num(pin);  // Obter o slice do PWM associado ao pino
 
     pwm_config config = pwm_get_default_config();  // Configurar o PWM com frequência desejada
     pwm_config_set_clkdiv(&config, clock_get_hz(clk_sys) / (BUZZER_FREQUENCY * 4096)); // Divisor de clock
@@ -275,15 +276,6 @@ void beep(uint pin, uint duration_ms) {
     sleep_ms(duration_ms);  // Temporização
     pwm_set_gpio_level(pin, 0); // Desativar o sinal PWM
     sleep_ms(100); // Pausa de 100ms
-}
-
-void init_botoes(){
-    gpio_init(BUTTON_A);
-    gpio_init(BUTTON_B_PIN);
-    gpio_set_dir(BUTTON_A, GPIO_IN);
-    gpio_set_dir(BUTTON_B_PIN, GPIO_IN);
-    gpio_pull_up(BUTTON_A);
-    gpio_pull_up(BUTTON_B_PIN);
 }
 
 void button_callback(uint gpio, uint32_t events) { // Função para tratar a interrupção do botão
@@ -320,8 +312,7 @@ void init_botoes_com_interrupcao() { // Interrupção com botões
     gpio_pull_up(BUTTON_A);
     gpio_pull_up(BUTTON_B_PIN);
 
-    // Configura interrupções para os botões
-    gpio_set_irq_enabled_with_callback(BUTTON_A, GPIO_IRQ_EDGE_FALL, true, button_callback);
+    gpio_set_irq_enabled_with_callback(BUTTON_A, GPIO_IRQ_EDGE_FALL, true, button_callback);     // Configura interrupções para os botões
     gpio_set_irq_enabled_with_callback(BUTTON_B_PIN, GPIO_IRQ_EDGE_FALL, true, button_callback);
 }
 
@@ -385,8 +376,7 @@ void mensagem_init_com_ip(char *text[], int num_linhas, int ip[4]) {
     char ip_str[16]; // Buffer para armazenar o IP formatado
     formatar_ip(ip, ip_str); // Formata o IP
 
-    // Adiciona o IP como uma nova linha no array de texto
-    char *text_com_ip[num_linhas + 1];
+    char *text_com_ip[num_linhas + 1]; // Adiciona o IP como uma nova linha no array de texto
     for (int i = 0; i < num_linhas; i++) {
         text_com_ip[i] = text[i];
     }
@@ -423,8 +413,7 @@ void OLED_wifi_conectado() {
     IP[2] = ip_address[2];
     IP[3] = ip_address[3];
 
-    // Mostra a mensagem de conexão e o IP no OLED
-    mensagem_init_com_ip(text, (sizeof(text) / sizeof(text[0])), IP);
+    mensagem_init_com_ip(text, (sizeof(text) / sizeof(text[0])), IP);     // Mostra a mensagem de conexão e o IP no Display
 
     beep(BUZZER_PIN, 500); // Bipe de 500ms
 
@@ -440,15 +429,15 @@ void OLED_wifi_conectado() {
     printf("Wi-Fi conectado!\n Acesse o Endereço IP %d.%d.%d.%d/led/on ", IP[0], IP[1], IP[2], IP[3]);
 }
 
-void falha_conexao_wifi(){
+void falha_conexao_wifi(){   // Mensagem de Falha na Conexão
     printf("Falha ao conectar ao Wi-Fi\n");
     
-        char *text[] = {
-            " . Falha       ",
-            "  . ao        ",
-            " Conectar     ",
-        };
-        mensagem_init(text, (sizeof(text) / sizeof(text[0]))); // Passa o tamanho do array
+    char *text[] = {
+        " . Falha       ",
+        "  . ao        ",
+        " Conectar     ",
+    };
+    mensagem_init(text, (sizeof(text) / sizeof(text[0]))); // Mostra no Display
 }
 
 void reiniciar_conexao_wifi() { // Faz uma nova tentativa de conexão caso não consiga se conectar inicialmente
@@ -460,8 +449,8 @@ void reiniciar_conexao_wifi() { // Faz uma nova tentativa de conexão caso não 
     
     printf("Tentando reconectar ao Wi-Fi...\n");
     if (cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASS, CYW43_AUTH_WPA2_AES_PSK, 10000)) { // Tenta reconectar ao Wi-Fi
-        falha_conexao_wifi(); // Exibe mensagem de falha no OLED
-        reiniciar_conexao_wifi(); // Reinicia a tentativa de conexão
+        falha_conexao_wifi();
+        reiniciar_conexao_wifi(); // Tenta reconectar de novo
     } else {
         OLED_wifi_conectado(); // Exibe mensagem de sucesso no OLED
     }
@@ -477,9 +466,8 @@ int main(){
     beep(BUZZER_PIN, 500); // Bipe de 500ms
     npInit(LED_PIN_MATRIZ);
     npClear();
-    init_botoes(); // Inicializa os Pinos dos botões
     ssd1306_init(); // Inicialização completa da Tela OLED SSD1306
-    init_botoes_com_interrupcao(); // Definindo os botões como uma interrupção...
+    init_botoes_com_interrupcao(); // Definindo os botões como uma interrupção
 
     limpar_display(ssd, &frame_area);
     OLED_conexao_wifi();
